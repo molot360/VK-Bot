@@ -2,7 +2,6 @@
   "name": "bot.js",
   "version": "1.0.0",
   "description": "Вк бот",
-  "main": "C:\\Users\\Администратор\\Bot",
   "dependencies": {
     "@vk-io/hear": "^1.0.2",
     "vk-io": "^4.0.0-rc.30"
@@ -13,8 +12,8 @@
   },
   "author": "Test Bot",
   "license": "ISC",
-  "repository": {
-    "type": "git",
-    "url": "C:\\Users\\Администратор\\Bot"
+  "engines": {
+    "npm": "6.14.4"
+    "node": "13.14.0"
   }
 }
