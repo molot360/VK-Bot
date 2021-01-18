@@ -1,0 +1,20 @@
+{
+  "name": "bot.js",
+  "version": "1.0.0",
+  "description": "Вк бот",
+  "main": "C:\\Users\\Администратор\\Bot",
+  "dependencies": {
+    "@vk-io/hear": "^1.0.2",
+    "vk-io": "^4.0.0-rc.30"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "Bot"
+  },
+  "author": "Test Bot",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "C:\\Users\\Администратор\\Bot"
+  }
+}
