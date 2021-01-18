@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Вк бот",
   "dependencies": {
+    "express": "4.17.1",
     "@vk-io/hear": "^1.0.2",
     "vk-io": "^4.0.0-rc.30"
   },
