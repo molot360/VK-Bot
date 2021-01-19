@@ -42,7 +42,7 @@ vk.updates.on('message', (next, context) => {
   return context()
 })
 
-vk.updates.hear(/^(?:❄|мут) ([0-9]+)$/i, msg => {
+vk.updates.hear(/^❄ ([0-9]+)$/i, msg => {
   const user = users.filter(x => x.id === msg.senderId)[0]
   if(user.role < 3) return msg.send('У тебя не хватает прав.')
   if(!msg.hasReplyMessage) return msg.send('Необходимо переслать сообщение.')
@@ -54,7 +54,7 @@ vk.updates.hear(/^(?:❄|мут) ([0-9]+)$/i, msg => {
   msg.send(`Пользователя заморозили на ${msg.$match[1]} сек.⌛`)
 })
 
-vk.updates.hear(/^(?:-мут|🔥)$/i, msg => {
+vk.updates.hear(/^🔥$/i, msg => {
   const user = users.filter(x => x.id === msg.senderId)[0]
   if(user.role < 3) return msg.send('У тебя нехватает прав.')
   if(!msg.hasReplyMessage) return msg.send('Необходимо переслать сообщение.')
@@ -75,7 +75,7 @@ vk.updates.on('chat_invite_user', (next, context) => {
   return context()
 })
 
-vk.updates.hear(/^(?:⚰|бан)$/i, msg => {
+vk.updates.hear(/^⚰$/i, msg => {
   const user = users.filter(x => x.id === msg.senderId)[0]
   if(user.role < 4) return msg.send('У тебя нехватает прав.')
   if(!msg.hasReplyMessage) return msg.send('Необходимо переслать сообщение.')
@@ -98,7 +98,7 @@ vk.updates.hear(/^✨$/i, msg => {
   msg.send(`Пользователь был разбанен.`)
 })
 
-vk.updates.hear(/^(?:варн|пред|🔪)$/i, msg => {
+vk.updates.hear(/^🔪$/i, msg => {
   const user = users.filter(x => x.id === msg.senderId)[0]
   if(user.role < 3) return msg.send('У тебя нехватает прав.')
   if(!msg.hasReplyMessage) return msg.send('Необходимо переслать сообщение.')
@@ -114,7 +114,7 @@ vk.updates.hear(/^(?:варн|пред|🔪)$/i, msg => {
   msg.send('Пользователь получил 1 предупреждение')
 })
 
-vk.updates.hear(/^(?:-пред|🍪)$/i, msg => {
+vk.updates.hear(/^🍪$/i, msg => {
   const user = users.filter(x => x.id === msg.senderId)[0]
   if(user.role < 3) return msg.send('У тебя нехватает прав.')
   if(!msg.hasReplyMessage) return msg.send('Необходимо переслать сообщение.')
@@ -125,7 +125,7 @@ vk.updates.hear(/^(?:-пред|🍪)$/i, msg => {
   msg.send(`У пользователя осталось ${u.warns}/3 предупреждений`)
 })
 
-vk.updates.hear(/^(?:❌|кик)$/i, msg => {
+vk.updates.hear(/^❌$/i, msg => {
   const user = users.filter(x => x.id === msg.senderId)[0]
   if(user.role < 4) return msg.send('У тебя нехватает прав.')
   if(!msg.hasReplyMessage) return msg.send('Нужно переслать сообщение.')
@@ -134,6 +134,28 @@ vk.updates.hear(/^(?:❌|кик)$/i, msg => {
   if(u.role > user.role) return msg.send('Нельзя кикнуть пользователя. Не хватает прав.')
   msg.send(`Пользователь был кикнут из беседы`)
   vk.api.messages.removeChatUser({ chat_id: msg.chatId, user_id: u.id })
+})
+
+vk.updates.hear(/^⭐$/i, msg => {
+  const user = users.filter(x => x.id === msg.senderId)[0]
+  if(user.role < 4) return msg.send('У тебя нехватает прав.')
+  if(!msg.hasReplyMessage) return msg.send('Необходимо переслать сообщение.')
+  const u = users.filter(x => x.id === msg.replyMessage.senderId)[0]
+  if(u.role > user.role) return msg.send('Нельзя повысить пользователя. Не хвататет прав.')
+  if(u.role > 4) return msg.send('Пользователь имеет максимально допустимый ранг.')
+  u.role += 1
+  msg.send(`Пользователь повышен.`)
+})
+
+vk.updates.hear(/^🌠$/i, msg => {
+  const user = users.filter(x => x.id === msg.senderId)[0]
+  if(user.role < 3) return msg.send('У тебя нехватает прав.')
+  if(!msg.hasReplyMessage) return msg.send('Необходимо переслать сообщение.')
+  const u = users.filter(x => x.id === msg.replyMessage.senderId)[0]
+  if(u.role > user.role) return msg.send('Нельзя понизить пользователя. Не хвататет прав.')
+  if(u.role < 1) return msg.send('Пользователь имеет максимально низкий ранг.')
+  u.role -= 1
+  msg.send(`Пользователь понижен.`)
 })
 
 console.log("Бот запущен!");
