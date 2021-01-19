@@ -136,27 +136,5 @@ vk.updates.hear(/^❌$/i, msg => {
   vk.api.messages.removeChatUser({ chat_id: msg.chatId, user_id: u.id })
 })
 
-vk.updates.hear(/^⭐$/i, msg => {
-  const user = users.filter(x => x.id === msg.senderId)[0]
-  if(user.role < 4) return msg.send('У тебя нехватает прав.')
-  if(!msg.hasReplyMessage) return msg.send('Необходимо переслать сообщение.')
-  const u = users.filter(x => x.id === msg.replyMessage.senderId)[0]
-  if(u.role > user.role) return msg.send('Нельзя повысить пользователя. Не хвататет прав.')
-  if(u.role > 4) return msg.send('Пользователь имеет максимально допустимый ранг.')
-  u.role += 1
-  msg.send(`Пользователь повышен.`)
-})
-
-vk.updates.hear(/^🌠$/i, msg => {
-  const user = users.filter(x => x.id === msg.senderId)[0]
-  if(user.role < 3) return msg.send('У тебя нехватает прав.')
-  if(!msg.hasReplyMessage) return msg.send('Необходимо переслать сообщение.')
-  const u = users.filter(x => x.id === msg.replyMessage.senderId)[0]
-  if(u.role > user.role) return msg.send('Нельзя понизить пользователя. Не хвататет прав.')
-  if(u.role < 1) return msg.send('Пользователь имеет максимально низкий ранг.')
-  u.role -= 1
-  msg.send(`Пользователь понижен.`)
-})
-
 console.log("Бот запущен!");
 vk.updates.start().catch(console.error)
