@@ -59,6 +59,7 @@ vk.updates.hear(/^🔥$/i, msg => {
   if(user.role < 3) return msg.send('У тебя нехватает прав.')
   if(!msg.hasReplyMessage) return msg.send('Необходимо переслать сообщение.')
   const u = users.filter(x => x.id === msg.replyMessage.senderId)[0]
+  if(user.id == u.id) return msg.send('Нельзя разморозить самого себя.')
   if(u.role > user.role) return msg.send('Нельзя разморозить пользователя. Не хватает прав.')
   if(u.mute == 0) return msg.send('Пользователь не заморожен')
   u.mute = 0
