@@ -2,7 +2,8 @@ const { VK } = require('vk-io');
 const vk = new VK();
 const users = require('./users.json');
 const fs = require('fs');
-const { HearManager } = require('@vk-io/hear')
+const { HearManager } = require('@vk-io/hear');
+const { SSL_OP_NETSCAPE_CA_DN_BUG } = require('constants');
 vk.setOptions({
 token:"484323f2e45a35108681ee49a2183369c15c409f7c0e98908f69d2877cfba0e681c056dd1a3ca7aefc366"
 })
@@ -34,6 +35,7 @@ vk.updates.on('message', (next, context) => {
   }
   users.push({
     id: next.senderId,
+    Name: "Текст",
     warns: 0,
     role: 1,
     ban: false,
