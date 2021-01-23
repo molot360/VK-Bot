@@ -75,13 +75,45 @@
 		"id": 554429144,
 		"Name": "Руслан Пустой",
 		"warns": 0,
-		"role": 1,
+		"role": 10,
 		"ban": false,
 		"mute": 0
 	},
 	{
 		"id": 529311223,
 		"Name": "Кирилл Крашев",
+		"warns": 0,
+		"role": 1,
+		"ban": false,
+		"mute": 0
+	},
+	{
+		"id": 357415681,
+		"Name": "Богдан Ветлугин",
+		"warns": 0,
+		"role": 1,
+		"ban": false,
+		"mute": 0
+	},
+	{
+		"id": 432782945,
+		"Name": "Роман Скопинцев",
+		"warns": 0,
+		"role": 1,
+		"ban": false,
+		"mute": 0
+	},
+	{
+		"id": 165903038,
+		"Name": "Тима Персиков",
+		"warns": 0,
+		"role": 1,
+		"ban": false,
+		"mute": 0
+	},
+	{
+		"id": 615188752,
+		"Name": "Hanzo Ninja-Of-Akuma",
 		"warns": 0,
 		"role": 1,
 		"ban": false,
