@@ -47,7 +47,6 @@ vk.updates.on('message', (next, context) => {
 vk.updates.hear(/^❄ ([0-9]+)$/i, msg => {
   const user = users.filter(x => x.id === msg.senderId)[0]
   if(user.role < 5) return msg.send('Не хватает прав')
-  if(user.role == u.role) return msg.send('Нельзя заморозить пользователя с таким же рангом')
   if(!msg.hasReplyMessage) return msg.send('Необходимо переслать сообщение')
   const u = users.filter(x => x.id === msg.replyMessage.senderId)[0]
   if(user.id == u.id) return msg.send('Нельзя заморозить самого себя')
@@ -60,7 +59,6 @@ vk.updates.hear(/^❄ ([0-9]+)$/i, msg => {
 vk.updates.hear(/^🔥$/i, msg => {
   const user = users.filter(x => x.id === msg.senderId)[0]
   if(user.role < 5) return msg.send('Не хватает прав')
-  if(user.role == u.role) return msg.send('Нельзя разморозить пользователя с таким же рангом')
   if(!msg.hasReplyMessage) return msg.send('Необходимо переслать сообщение')
   const u = users.filter(x => x.id === msg.replyMessage.senderId)[0]
   if(user.id == u.id) return msg.send(`Нельзя разморозить самого себя`)
@@ -83,7 +81,6 @@ vk.updates.on('chat_invite_user', (next, context) => {
 vk.updates.hear(/^⚰$/i, msg => {
   const user = users.filter(x => x.id === msg.senderId)[0]
   if(user.role < 8) return msg.send('Не хватает прав')
-  if(user.role == u.role) return msg.send('Нельзя забанить пользователя с таким же рангом')
   if(!msg.hasReplyMessage) return msg.send('Необходимо переслать сообщение')
   const u = users.filter(x => x.id === msg.replyMessage.senderId)[0]
   if(user.id == u.id) return msg.send('Нельзя выдать бан самому себе')
@@ -96,7 +93,6 @@ vk.updates.hear(/^⚰$/i, msg => {
 vk.updates.hear(/^✨$/i, msg => {
   const user = users.filter(x => x.id === msg.senderId)[0]
   if(user.role < 8) return msg.send('Не хватает прав')
-  if(user.role == u.role) return msg.send('Нельзя разбанить пользователя с таким же рангом')
   if(!msg.hasReplyMessage) return msg.send('Необходимо переслать сообщение')
   const u = users.filter(x => x.id === msg.replyMessage.senderId)[0]
   if(u.role > user.role) return msg.send('Нельзя разбанить пользователя: не хватает прав')
@@ -108,7 +104,6 @@ vk.updates.hear(/^✨$/i, msg => {
 vk.updates.hear(/^🔪$/i, msg => {
   const user = users.filter(x => x.id === msg.senderId)[0]
   if(user.role < 6) return msg.send('Не хватает прав')
-  if(user.role == u.role) return msg.send('Нельзя выдать предупреждение пользователю с таким же рангом')
   if(!msg.hasReplyMessage) return msg.send('Необходимо переслать сообщение')
   const u = users.filter(x => x.id === msg.replyMessage.senderId)[0]
   if(user.id == u.id) return msg.send('Нельзя выдать предупреждение самому себе')
@@ -125,7 +120,6 @@ vk.updates.hear(/^🔪$/i, msg => {
 vk.updates.hear(/^🍪$/i, msg => {
   const user = users.filter(x => x.id === msg.senderId)[0]
   if(user.role < 6) return msg.send('Не хватает прав')
-  if(user.role == u.role) return msg.send('Нельзя снять предупреждение с пользователя с таким же рангом')
   if(!msg.hasReplyMessage) return msg.send('Необходимо переслать сообщение')
   const u = users.filter(x => x.id === msg.replyMessage.senderId)[0]
   if(u.role > user.role) return msg.send('Нельзя снять предупреждение с пользователя: не хватает прав')
@@ -137,7 +131,6 @@ vk.updates.hear(/^🍪$/i, msg => {
 vk.updates.hear(/^❌$/i, msg => {
   const user = users.filter(x => x.id === msg.senderId)[0]
   if(user.role < 7) return msg.send('Не хватает прав')
-  if(user.role == u.role) return msg.send('Нельзя кикнуть пользователя с таким же рангом')
   if(!msg.hasReplyMessage) return msg.send('Необходимо переслать сообщение')
   const u = users.filter(x => x.id === msg.replyMessage.senderId)[0]
   if(user.id == u.id) return msg.send('Нельзя кикнуть самого себя')
