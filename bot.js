@@ -50,7 +50,7 @@ vk.updates.hear(/^❄ ([0-9]+)$/i, msg => {
   if(!msg.hasReplyMessage) return msg.send('Необходимо переслать сообщение')
   const u = users.filter(x => x.id === msg.replyMessage.senderId)[0]
   if(user.id == u.id) return msg.send('Нельзя заморозить самого себя')
-  if(u.role > user.role) return msg.send('Нельзя заморозить пользователя: не хватает прав')
+  if(u.role >= user.role) return msg.send('Нельзя заморозить пользователя: не хватает прав')
   const seconds = Number(msg.$match[1]) * 1000
   u.mute = Date.now() + seconds
   msg.send(`${u.Name} заморожен на ${msg.$match[1]} сек.⌛`)
@@ -62,7 +62,7 @@ vk.updates.hear(/^🔥$/i, msg => {
   if(!msg.hasReplyMessage) return msg.send('Необходимо переслать сообщение')
   const u = users.filter(x => x.id === msg.replyMessage.senderId)[0]
   if(user.id == u.id) return msg.send(`Нельзя разморозить самого себя`)
-  if(u.role > user.role) return msg.send(`Нельзя разморозить пользователя: не хватает прав`)
+  if(u.role >= user.role) return msg.send(`Нельзя разморозить пользователя: не хватает прав`)
   if(u.mute == 0) return msg.send(`${u.Name} не заморожен`)
   u.mute = 0
   msg.send(`${u.Name} был разморожен.`)
@@ -84,7 +84,7 @@ vk.updates.hear(/^⚰$/i, msg => {
   if(!msg.hasReplyMessage) return msg.send('Необходимо переслать сообщение')
   const u = users.filter(x => x.id === msg.replyMessage.senderId)[0]
   if(user.id == u.id) return msg.send('Нельзя выдать бан самому себе')
-  if(u.role > user.role) return msg.send('Нельзя выдать бан пользователю: не хватает прав.')
+  if(u.role >= user.role) return msg.send('Нельзя выдать бан пользователю: не хватает прав.')
   u.ban = true
   msg.send(`${u.Name} был забанен.`)
   vk.api.messages.removeChatUser({ chat_id: msg.chatId, user_id: u.id })
@@ -95,7 +95,7 @@ vk.updates.hear(/^✨$/i, msg => {
   if(user.role < 8) return msg.send('Не хватает прав')
   if(!msg.hasReplyMessage) return msg.send('Необходимо переслать сообщение')
   const u = users.filter(x => x.id === msg.replyMessage.senderId)[0]
-  if(u.role > user.role) return msg.send('Нельзя разбанить пользователя: не хватает прав')
+  if(u.role >= user.role) return msg.send('Нельзя разбанить пользователя: не хватает прав')
   if(u.ban == 0) return msg.send(`${u.Name} не забанен`)
   u.ban = false
   msg.send(`${u.Name} был разбанен.`)
@@ -107,7 +107,7 @@ vk.updates.hear(/^🔪$/i, msg => {
   if(!msg.hasReplyMessage) return msg.send('Необходимо переслать сообщение')
   const u = users.filter(x => x.id === msg.replyMessage.senderId)[0]
   if(user.id == u.id) return msg.send('Нельзя выдать предупреждение самому себе')
-  if(u.role > user.role) return msg.send('Нельзя выдать предупреждение пользователю: не хватает прав')
+  if(u.role >= user.role) return msg.send('Нельзя выдать предупреждение пользователю: не хватает прав')
   if(u.warns+1 == 3) {
     msg.send(`${u.Name} получает третье предупреждение и исключается из беседы`)
     vk.api.messages.removeChatUser({ chat_id: msg.chatId, user_id: u.id })
@@ -122,7 +122,7 @@ vk.updates.hear(/^🍪$/i, msg => {
   if(user.role < 6) return msg.send('Не хватает прав')
   if(!msg.hasReplyMessage) return msg.send('Необходимо переслать сообщение')
   const u = users.filter(x => x.id === msg.replyMessage.senderId)[0]
-  if(u.role > user.role) return msg.send('Нельзя снять предупреждение с пользователя: не хватает прав')
+  if(u.role >= user.role) return msg.send('Нельзя снять предупреждение с пользователя: не хватает прав')
   if(u.warns == 0) return msg.send('У пользователя нет предупреждений')
   u.warns -= 1
   msg.send(`У пользователя осталось ${u.warns}/3 предупреждений`)
@@ -134,7 +134,7 @@ vk.updates.hear(/^❌$/i, msg => {
   if(!msg.hasReplyMessage) return msg.send('Необходимо переслать сообщение')
   const u = users.filter(x => x.id === msg.replyMessage.senderId)[0]
   if(user.id == u.id) return msg.send('Нельзя кикнуть самого себя')
-  if(u.role > user.role) return msg.send('Нельзя кикнуть пользователя: не хватает прав')
+  if(u.role >= user.role) return msg.send('Нельзя кикнуть пользователя: не хватает прав')
   msg.send(`${u.Name} был кикнут из беседы`)
   vk.api.messages.removeChatUser({ chat_id: msg.chatId, user_id: u.id })
 })
