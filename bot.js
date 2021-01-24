@@ -35,13 +35,211 @@ vk.updates.on('message', (next, context) => {
   }
   users.push({
     id: next.senderId,
-    Name: "Текст",
+    name: "Текст",
+    nick: "Пользователь",
     warns: 0,
     role: 1,
     ban: false,
     mute: 0
   })
   return context()
+})
+
+vk.updates.hear(/^!ник (.*)/i, msg => {
+  user = users.filter(x => x.id === msg.senderId)[0]
+  nick = msg.$match[1]
+  if(nick.length > 15) return msg.send(`Ник не может быть длиннее 15 символов`)
+  user.nick = nick
+  msg.send(`Вы сменили никнейм на "${nick}"`)
+})
+
+vk.updates.hear(/^Пригласить на чай$/i, msg => {
+  const user = users.filter(x => x.id === msg.senderId)[0]
+  if(user.role < 1) return msg.send('У тебя нехватает прав')
+  if(!msg.hasReplyMessage) return msg.send('Для выполнения рп-команды нужно переслать сообщение')
+  const u = users.filter(x => x.id === msg.replyMessage.senderId)[0]
+  if(user.id == u.id) return msg.send('Нельзя использовать рп-команды на себя')
+  msg.send(`${user.nick} *пригласил(а) на чай*☕ ${u.nick}`)
+})
+
+vk.updates.hear(/^Обнять$/i, msg => {
+  const user = users.filter(x => x.id === msg.senderId)[0]
+  if(user.role < 1) return msg.send('У тебя нехватает прав')
+  if(!msg.hasReplyMessage) return msg.send('Для выполнения рп-команды нужно переслать сообщение')
+  const u = users.filter(x => x.id === msg.replyMessage.senderId)[0]
+  if(user.id == u.id) return msg.send('Нельзя использовать рп-команды на себя')
+  msg.send(`${user.nick} *обнял(а)*🤗 ${u.nick}`)
+})
+
+vk.updates.hear(/^Пнуть$/i, msg => {
+  const user = users.filter(x => x.id === msg.senderId)[0]
+  if(user.role < 1) return msg.send('У тебя нехватает прав')
+  if(!msg.hasReplyMessage) return msg.send('Для выполнения рп-команды нужно переслать сообщение')
+  const u = users.filter(x => x.id === msg.replyMessage.senderId)[0]
+  if(user.id == u.id) return msg.send('Нельзя использовать рп-команды на себя')
+  msg.send(`${user.nick} *пнул(а)*👟 ${u.nick}`)
+})
+
+vk.updates.hear(/^Выебать$/i, msg => {
+  const user = users.filter(x => x.id === msg.senderId)[0]
+  if(user.role < 1) return msg.send('У тебя нехватает прав')
+  if(!msg.hasReplyMessage) return msg.send('Для выполнения рп-команды нужно переслать сообщение')
+  const u = users.filter(x => x.id === msg.replyMessage.senderId)[0]
+  if(user.id == u.id) return msg.send('Нельзя использовать рп-команды на себя')
+  msg.send(`${user.nick} *принудил(а) к интиму*👉🏻👌🏻 ${u.nick}`)
+})
+
+vk.updates.hear(/^Кусь$/i, msg => {
+  const user = users.filter(x => x.id === msg.senderId)[0]
+  if(user.role < 1) return msg.send('У тебя нехватает прав')
+  if(!msg.hasReplyMessage) return msg.send('Для выполнения рп-команды нужно переслать сообщение')
+  const u = users.filter(x => x.id === msg.replyMessage.senderId)[0]
+  if(user.id == u.id) return msg.send('Нельзя использовать рп-команды на себя')
+  msg.send(`${user.nick} *сделал(а) кусь*😸 ${u.nick}`)
+})
+
+vk.updates.hear(/^Уебать$/i, msg => {
+  const user = users.filter(x => x.id === msg.senderId)[0]
+  if(user.role < 1) return msg.send('У тебя нехватает прав')
+  if(!msg.hasReplyMessage) return msg.send('Для выполнения рп-команды нужно переслать сообщение')
+  const u = users.filter(x => x.id === msg.replyMessage.senderId)[0]
+  if(user.id == u.id) return msg.send('Нельзя использовать рп-команды на себя')
+  msg.send(`${user.nick} *сильно ударил(а)*👊🏻 ${u.nick}`)
+})
+
+vk.updates.hear(/^Показать бицуху$/i, msg => {
+  const user = users.filter(x => x.id === msg.senderId)[0]
+  if(user.role < 1) return msg.send('У тебя нехватает прав')
+  if(!msg.hasReplyMessage) return msg.send('Для выполнения рп-команды нужно переслать сообщение')
+  const u = users.filter(x => x.id === msg.replyMessage.senderId)[0]
+  if(user.id == u.id) return msg.send('Нельзя использовать рп-команды на себя')
+  msg.send(`${user.nick} *показал(а) бицуху*💪🏻 ${u.nick}`)
+})
+
+vk.updates.hear(/^Погладить$/i, msg => {
+  const user = users.filter(x => x.id === msg.senderId)[0]
+  if(user.role < 1) return msg.send('У тебя нехватает прав')
+  if(!msg.hasReplyMessage) return msg.send('Для выполнения рп-команды нужно переслать сообщение')
+  const u = users.filter(x => x.id === msg.replyMessage.senderId)[0]
+  if(user.id == u.id) return msg.send('Нельзя использовать рп-команды на себя')
+  msg.send(`${user.nick} *погладил(а)*👋🏻 ${u.nick}`)
+})
+
+vk.updates.hear(/^Убить$/i, msg => {
+  const user = users.filter(x => x.id === msg.senderId)[0]
+  if(user.role < 1) return msg.send('У тебя нехватает прав')
+  if(!msg.hasReplyMessage) return msg.send('Для выполнения рп-команды нужно переслать сообщение')
+  const u = users.filter(x => x.id === msg.replyMessage.senderId)[0]
+  if(user.id == u.id) return msg.send('Нельзя использовать рп-команды на себя')
+  msg.send(`${user.nick} *убил(а)*🔪 ${u.nick}`)
+})
+
+vk.updates.hear(/^Поцеловать$/i, msg => {
+  const user = users.filter(x => x.id === msg.senderId)[0]
+  if(user.role < 1) return msg.send('У тебя нехватает прав')
+  if(!msg.hasReplyMessage) return msg.send('Для выполнения рп-команды нужно переслать сообщение')
+  const u = users.filter(x => x.id === msg.replyMessage.senderId)[0]
+  if(user.id == u.id) return msg.send('Нельзя использовать рп-команды на себя')
+  msg.send(`${user.nick} *поцеловал(а)*💋 ${u.nick}`)
+})
+
+vk.updates.hear(/^Покормить$/i, msg => {
+  const user = users.filter(x => x.id === msg.senderId)[0]
+  if(user.role < 1) return msg.send('У тебя нехватает прав')
+  if(!msg.hasReplyMessage) return msg.send('Для выполнения рп-команды нужно переслать сообщение')
+  const u = users.filter(x => x.id === msg.replyMessage.senderId)[0]
+  if(user.id == u.id) return msg.send('Нельзя использовать рп-команды на себя')
+  msg.send(`${user.nick} *покормил(а)*🥣 ${u.nick}`)
+})
+
+vk.updates.hear(/^Связать$/i, msg => {
+  const user = users.filter(x => x.id === msg.senderId)[0]
+  if(user.role < 1) return msg.send('У тебя нехватает прав')
+  if(!msg.hasReplyMessage) return msg.send('Для выполнения рп-команды нужно переслать сообщение')
+  const u = users.filter(x => x.id === msg.replyMessage.senderId)[0]
+  if(user.id == u.id) return msg.send('Нельзя использовать рп-команды на себя')
+  msg.send(`${user.nick} *связал(а)*😵 ${u.nick}`)
+})
+
+vk.updates.hear(/^Попустить$/i, msg => {
+  const user = users.filter(x => x.id === msg.senderId)[0]
+  if(user.role < 1) return msg.send('У тебя нехватает прав')
+  if(!msg.hasReplyMessage) return msg.send('Для выполнения рп-команды нужно переслать сообщение')
+  const u = users.filter(x => x.id === msg.replyMessage.senderId)[0]
+  if(user.id == u.id) return msg.send('Нельзя использовать рп-команды на себя')
+  msg.send(`${user.nick} *попустил(а)*🐽 ${u.nick}`)
+})
+
+vk.updates.hear(/^Похвалить$/i, msg => {
+  const user = users.filter(x => x.id === msg.senderId)[0]
+  if(user.role < 1) return msg.send('У тебя нехватает прав')
+  if(!msg.hasReplyMessage) return msg.send('Для выполнения рп-команды нужно переслать сообщение')
+  const u = users.filter(x => x.id === msg.replyMessage.senderId)[0]
+  if(user.id == u.id) return msg.send('Нельзя использовать рп-команды на себя')
+  msg.send(`${user.nick} *похвалил(а)*😊 ${u.nick}`)
+})
+
+vk.updates.hear(/^Рассмешить$/i, msg => {
+  const user = users.filter(x => x.id === msg.senderId)[0]
+  if(user.role < 1) return msg.send('У тебя нехватает прав')
+  if(!msg.hasReplyMessage) return msg.send('Для выполнения рп-команды нужно переслать сообщение')
+  const u = users.filter(x => x.id === msg.replyMessage.senderId)[0]
+  if(user.id == u.id) return msg.send('Нельзя использовать рп-команды на себя')
+  msg.send(`${user.nick} *рассмешил(а)*🤣 ${u.nick}`)
+})
+
+vk.updates.hear(/^Схватить$/i, msg => {
+  const user = users.filter(x => x.id === msg.senderId)[0]
+  if(user.role < 1) return msg.send('У тебя нехватает прав')
+  if(!msg.hasReplyMessage) return msg.send('Для выполнения рп-команды нужно переслать сообщение')
+  const u = users.filter(x => x.id === msg.replyMessage.senderId)[0]
+  if(user.id == u.id) return msg.send('Нельзя использовать рп-команды на себя')
+  msg.send(`${user.nick} *схватил(а)*😋 ${u.nick}`)
+})
+
+vk.updates.hear(/^Растрепать волосы$/i, msg => {
+  const user = users.filter(x => x.id === msg.senderId)[0]
+  if(user.role < 1) return msg.send('У тебя нехватает прав')
+  if(!msg.hasReplyMessage) return msg.send('Для выполнения рп-команды нужно переслать сообщение')
+  const u = users.filter(x => x.id === msg.replyMessage.senderId)[0]
+  if(user.id == u.id) return msg.send('Нельзя использовать рп-команды на себя')
+  msg.send(`${user.nick} *испортил(а) причёску*😠 ${u.nick}`)
+})
+
+vk.updates.hear(/^Толкнуть$/i, msg => {
+  const user = users.filter(x => x.id === msg.senderId)[0]
+  if(user.role < 1) return msg.send('У тебя нехватает прав')
+  if(!msg.hasReplyMessage) return msg.send('Для выполнения рп-команды нужно переслать сообщение')
+  const u = users.filter(x => x.id === msg.replyMessage.senderId)[0]
+  if(user.id == u.id) return msg.send('Нельзя использовать рп-команды на себя')
+  msg.send(`${user.nick} *толкнул(а)*🤕 ${u.nick}`)
+})
+
+vk.updates.hear(/^Накинуть шарф$/i, msg => {
+  const user = users.filter(x => x.id === msg.senderId)[0]
+  if(user.role < 1) return msg.send('У тебя нехватает прав')
+  if(!msg.hasReplyMessage) return msg.send('Для выполнения рп-команды нужно переслать сообщение')
+  const u = users.filter(x => x.id === msg.replyMessage.senderId)[0]
+  if(user.id == u.id) return msg.send('Нельзя использовать рп-команды на себя')
+  msg.send(`${user.nick} *накинул(а) шарф*🤗 на ${u.nick}`)
+})
+
+vk.updates.hear(/^Делать секс$/i, msg => {
+  const user = users.filter(x => x.id === msg.senderId)[0]
+  if(user.role < 1) return msg.send('У тебя нехватает прав')
+  if(!msg.hasReplyMessage) return msg.send('Для выполнения рп-команды нужно переслать сообщение')
+  const u = users.filter(x => x.id === msg.replyMessage.senderId)[0]
+  if(user.id == u.id) return msg.send('Нельзя использовать рп-команды на себя')
+  msg.send(`*было много cum*😨`)
+})
+
+vk.updates.hear(/^Завести ребёнка$/i, msg => {
+  const user = users.filter(x => x.id === msg.senderId)[0]
+  if(user.role < 1) return msg.send('У тебя нехватает прав')
+  if(!msg.hasReplyMessage) return msg.send('Для выполнения рп-команды нужно переслать сообщение')
+  const u = users.filter(x => x.id === msg.replyMessage.senderId)[0]
+  if(user.id == u.id) return msg.send('Нельзя использовать рп-команды на себя')
+  msg.send(`*знакомьтесь, Антон*🙂`)
 })
 
 vk.updates.hear(/^❄ ([0-9]+)$/i, msg => {
@@ -53,7 +251,7 @@ vk.updates.hear(/^❄ ([0-9]+)$/i, msg => {
   if(u.role >= user.role) return msg.send('Нельзя заморозить пользователя: не хватает прав')
   const seconds = Number(msg.$match[1]) * 1000
   u.mute = Date.now() + seconds
-  msg.send(`${u.Name} заморожен на ${msg.$match[1]} сек.⌛`)
+  msg.send(`${u.Name} заморожен(а) на ${msg.$match[1]} сек.⌛`)
 })
 
 vk.updates.hear(/^🔥$/i, msg => {
@@ -63,9 +261,9 @@ vk.updates.hear(/^🔥$/i, msg => {
   const u = users.filter(x => x.id === msg.replyMessage.senderId)[0]
   if(user.id == u.id) return msg.send(`Нельзя разморозить самого себя`)
   if(u.role >= user.role) return msg.send(`Нельзя разморозить пользователя: не хватает прав`)
-  if(u.mute == 0) return msg.send(`${u.Name} не заморожен`)
+  if(u.mute == 0) return msg.send(`${u.Name} не заморожен(а)`)
   u.mute = 0
-  msg.send(`${u.Name} был разморожен.`)
+  msg.send(`${u.Name} разморожен(а)`)
 })
 
 vk.updates.on('chat_invite_user', (next, context) => {
@@ -86,7 +284,7 @@ vk.updates.hear(/^⚰$/i, msg => {
   if(user.id == u.id) return msg.send('Нельзя выдать бан самому себе')
   if(u.role >= user.role) return msg.send('Нельзя выдать бан пользователю: не хватает прав.')
   u.ban = true
-  msg.send(`${u.Name} был забанен.`)
+  msg.send(`${u.Name} забанен(а)`)
   vk.api.messages.removeChatUser({ chat_id: msg.chatId, user_id: u.id })
 })
 
@@ -96,9 +294,9 @@ vk.updates.hear(/^✨$/i, msg => {
   if(!msg.hasReplyMessage) return msg.send('Необходимо переслать сообщение')
   const u = users.filter(x => x.id === msg.replyMessage.senderId)[0]
   if(u.role >= user.role) return msg.send('Нельзя разбанить пользователя: не хватает прав')
-  if(u.ban == 0) return msg.send(`${u.Name} не забанен`)
+  if(u.ban == 0) return msg.send(`${u.Name} не забанен(а)`)
   u.ban = false
-  msg.send(`${u.Name} был разбанен.`)
+  msg.send(`${u.Name} разбанен(а)`)
 })
 
 vk.updates.hear(/^🔪$/i, msg => {
@@ -114,7 +312,7 @@ vk.updates.hear(/^🔪$/i, msg => {
     return
   }
   u.warns++
-  msg.send(`${u.Name} получил ${u.warns}/3 предупреждений`)
+  msg.send(`${u.Name} получил(а) ${u.warns}/3 предупреждений`)
 })
 
 vk.updates.hear(/^🍪$/i, msg => {
@@ -135,7 +333,7 @@ vk.updates.hear(/^❌$/i, msg => {
   const u = users.filter(x => x.id === msg.replyMessage.senderId)[0]
   if(user.id == u.id) return msg.send('Нельзя кикнуть самого себя')
   if(u.role >= user.role) return msg.send('Нельзя кикнуть пользователя: не хватает прав')
-  msg.send(`${u.Name} был кикнут из беседы`)
+  msg.send(`${u.Name} кикнут(а) из беседы`)
   vk.api.messages.removeChatUser({ chat_id: msg.chatId, user_id: u.id })
 })
 
