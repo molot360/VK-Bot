@@ -24,12 +24,12 @@ vk.updates.on('message', (next, context) => {
   if(user) {
     if(user.mute > Date.now()){
       if(user.warns+1 == 3) {
-        next.send(`${u.Name} получает предупреждение за нарушение мута и исключается из беседы`)
+        next.send(`${u.name} получает предупреждение за нарушение мута и исключается из беседы`)
         vk.api.messages.removeChatUser({ chat_id: next.chatId, user_id: user.id })
         return
       }
       user.warns++
-      next.send(`${u.Name} получает предупреждение за нарушение мута`)
+      next.send(`${u.name} получает предупреждение за нарушение мута`)
     }
     return context()
   }
