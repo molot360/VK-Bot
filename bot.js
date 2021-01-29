@@ -1,6 +1,5 @@
 const { VK } = require('vk-io');
 const vk = new VK();
-const request = require('prequest');
 const users = require('./users.json');
 const fs = require('fs');
 const { HearManager } = require('@vk-io/hear');
@@ -100,21 +99,12 @@ vk.updates.hear(/^!ник (.*)/i, msg => {
 })
 
 vk.updates.hear(/^проф/i, msg => {
-  vk.api.users.get({ user_ids: msg.senderId, name_case: 'gen' }).then((result) => {
-    request('https://vk.com/foaf.php?id=' + result[0].id).then((res) => {
-      let a = res.split('<ya:created dc:date="')[1].split('"')[0].replace(/-/g, '.').replace(/T/, ' ').split('+')[0]
-      let year = a.split('.')[0]
-      let month = a.split('.')[1]
-      let date = a.split('.')[2].split(' ')[0]
-      let time = a.split(' ')[1]
   user = users.filter(x => x.id === msg.senderId)[0]
   var achieve1 = ''
   if(user.messages > 10000) achieve1 += `🏅Активный собеседник (написать 10 000 сообщений)`
   var text = ''
   if(user.role > 7) text += `✅Администратор`
-  msg.send(`📋Профиль ${user.nick}:\n⭐Ранг: ${user.role}\n🛡Клан: ${user.clan.name}\n🖋Количество отправленных сообщений: ${user.messages}\n📝Описание: ${user.description}\n⏱Дата регистрации: ${date}.${month}.${year} ${time} (По МСК)\n🏆Достижения:\n${achieve1}\n\n${text}`)
-})
-})
+  msg.send(`📋Профиль ${user.nick}:\n⭐Ранг: ${user.role}\n🛡Клан: ${user.clan.name}\n🖋Количество отправленных сообщений: ${user.messages}\n📝Описание: ${user.description}\n🏆Достижения:\n${achieve1}\n\n${text}`)
 })
 
 vk.updates.hear(/^Пригласить на чай "(.*)"$/i, msg => {
