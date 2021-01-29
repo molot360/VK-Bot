@@ -87,7 +87,7 @@
 		"role": 1,
 		"ban": false,
 		"mute": 0,
-		"messages": 8634
+		"messages": 6861
 	},
 	{
 		"id": 220386544,
@@ -237,7 +237,7 @@
 		"role": 1,
 		"ban": false,
 		"mute": 0,
-		"messages": 7429
+		"messages": 7233
 	},
 	{
 		"id": 172289712,
@@ -343,5 +343,20 @@
 		"ban": false,
 		"mute": 0,
 		"messages": 0
+	},
+	{
+		"id": 338046023,
+		"name": "Александр Малышев",
+		"nick": "Плов",
+		"clan": {
+			"name": "Нет",
+			"id": 0
+		},
+		"description": "Нет",
+		"warns": 0,
+		"role": 1,
+		"ban": false,
+		"mute": 0,
+		"messages": 356
 	}
 ]
