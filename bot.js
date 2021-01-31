@@ -20,6 +20,7 @@ setInterval(async () => {
 }, 500);
 
 vk.updates.on('message', (next, context) => {
+  const user = users.filter(x => x.id === next.senderId)[0]
   if(user) {
     if(user.mute > Date.now()){
       if(user.warns+1 == 3) {
