@@ -1,7 +1,7 @@
 [
 	{
 		"id": 295433957,
-		"name": "Андрей Поплевко",
+		"name": "...",
 		"nick": "Eir-Bavar",
 		"clan": {
 			"name": "League of Legends",
@@ -12,7 +12,7 @@
 		"role": 11,
 		"ban": false,
 		"mute": 0,
-		"messages": 2003
+		"messages": 2010
 	},
 	{
 		"id": 492815523,
@@ -87,7 +87,7 @@
 		"role": 1,
 		"ban": false,
 		"mute": 0,
-		"messages": 6861
+		"messages": 7951
 	},
 	{
 		"id": 220386544,
@@ -122,7 +122,7 @@
 	{
 		"id": 470304511,
 		"name": "Dan Vrancean",
-		"nick": "Пользователь",
+		"nick": "Легушка",
 		"clan": {
 			"name": "Нет",
 			"id": 0
@@ -147,12 +147,12 @@
 		"role": 10,
 		"ban": false,
 		"mute": 0,
-		"messages": 2128
+		"messages": 2130
 	},
 	{
 		"id": 529311223,
 		"name": "Кирилл Крашев",
-		"nick": "Пользователь",
+		"nick": "Оdinツ",
 		"clan": {
 			"name": "Нет",
 			"id": 0
@@ -162,7 +162,7 @@
 		"role": 6,
 		"ban": false,
 		"mute": 0,
-		"messages": 6546
+		"messages": 6611
 	},
 	{
 		"id": 357415681,
@@ -237,7 +237,7 @@
 		"role": 1,
 		"ban": false,
 		"mute": 0,
-		"messages": 7233
+		"messages": 9265
 	},
 	{
 		"id": 172289712,
@@ -272,7 +272,7 @@
 	{
 		"id": 242211715,
 		"name": "Даниил Маерский",
-		"nick": "Пользователь",
+		"nick": "изумруд",
 		"clan": {
 			"name": "Нет",
 			"id": 0
@@ -282,7 +282,7 @@
 		"role": 1,
 		"ban": false,
 		"mute": 0,
-		"messages": 389
+		"messages": 390
 	},
 	{
 		"id": 421421663,
@@ -327,7 +327,7 @@
 		"role": 1,
 		"ban": false,
 		"mute": 0,
-		"messages": 0
+		"messages": 2
 	},
 	{
 		"id": 402672554,
@@ -343,20 +343,5 @@
 		"ban": false,
 		"mute": 0,
 		"messages": 0
-	},
-	{
-		"id": 338046023,
-		"name": "Александр Малышев",
-		"nick": "Плов",
-		"clan": {
-			"name": "Нет",
-			"id": 0
-		},
-		"description": "Нет",
-		"warns": 0,
-		"role": 1,
-		"ban": false,
-		"mute": 0,
-		"messages": 356
 	}
 ]

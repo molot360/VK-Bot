@@ -20,8 +20,6 @@ setInterval(async () => {
 }, 500);
 
 vk.updates.on('message', (next, context) => {
-  const user = users.filter(x => x.id === next.senderId)[0]
-  user.messages++
   if(user) {
     if(user.mute > Date.now()){
       if(user.warns+1 == 3) {
@@ -50,6 +48,11 @@ vk.updates.on('message', (next, context) => {
     messages: 0
 })
   return context()
+})
+
+vk.updates.on('message', (next) => {
+  const user = users.filter(x => x.id === next.senderId)[0]
+  user.messages++
 })
 
 const clans = [
@@ -100,6 +103,16 @@ vk.updates.hear(/^!ник (.*)/i, msg => {
 
 vk.updates.hear(/^проф/i, msg => {
   user = users.filter(x => x.id === msg.senderId)[0]
+    if(msg.hasReplyMessage) {
+      user = users.filter(x => x.id === msg.senderId)[0]
+      const u = users.filter(x => x.id === msg.replyMessage.senderId)[0]
+      var achieve1 = ''
+      if(u.messages > 10000) achieve1 += `🏅Активный собеседник (написать 10 000 сообщений)`
+      var text = ''
+      if(u.role > 7) text += `✅Администратор`
+      msg.send(`📋Профиль ${u.nick}:\n⭐Ранг: ${u.role}\n🛡Клан: ${u.clan.name}\n🖋Количество отправленных сообщений: ${u.messages}\n📝Описание: ${u.description}\n🏆Достижения:\n${achieve1}\n\n${text}`)
+      return context()
+  }
   var achieve1 = ''
   if(user.messages > 10000) achieve1 += `🏅Активный собеседник (написать 10 000 сообщений)`
   var text = ''
