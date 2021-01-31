@@ -47,12 +47,8 @@ vk.updates.on('message', (next, context) => {
     mute: 0,
     messages: 0
 })
-  return context()
-})
-
-vk.updates.on('message', (next) => {
-  const user = users.filter(x => x.id === next.senderId)[0]
   user.messages++
+  return context()
 })
 
 const clans = [
