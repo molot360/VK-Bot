@@ -20,7 +20,7 @@ setInterval(async () => {
 }, 500);
 
 vk.updates.on('message', (next, context) => {
-  if(user) {
+  if(use) {
     if(user.mute > Date.now()){
       if(user.warns+1 == 3) {
         next.send(`${u.name} получает предупреждение за нарушение мута и исключается из беседы`)
