@@ -106,7 +106,7 @@ vk.updates.hear(/^проф/i, msg => {
       var achieve1 = ''
       if(u.messages > 10000) achieve1 += `🏅Активный собеседник (написать 10 000 сообщений)`
       var text = ''
-      if(u.role > 7) text += `✅Администратор`
+      if(u.role > 5) text += `✅Администратор`
       msg.send(`📋Профиль ${u.nick}:\n⭐Ранг: ${u.role}\n🛡Клан: ${u.clan.name}\n🖋Количество отправленных сообщений: ${u.messages}\n📝Описание: ${u.description}\n🏆Достижения:\n${achieve1}\n\n${text}`)
       return context()
   }
