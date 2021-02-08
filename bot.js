@@ -19,9 +19,14 @@ setInterval(async () => {
   fs.writeFileSync("./users.json", JSON.stringify(users, null, "\t"))
 }, 500);
 
+async function saveUsers () {
+  require('fs').writeFileSync('./users.json', JSON.stringify(users, null,
+  '/t'));
+  return true;
+}
+
 vk.updates.on('message', (next, context) => {
   const user = users.filter(x => x.id === next.senderId)[0]
-  user.messages++
   if(user) {
     if(user.mute > Date.now()){
       if(user.warns+1 == 3) {
@@ -34,9 +39,10 @@ vk.updates.on('message', (next, context) => {
     }
     return context()
   }
+  vk.api.users.get({ user_ids: next.senderId, name_case: 'nom' }).then((result) => {
   users.push({
     id: next.senderId,
-    name: "Пользователь", 
+    name: result[0].first_name + ' ' + result[0].last_name, 
     nick: "Пользователь",
     clan: {
       name: "Нет",
@@ -49,7 +55,15 @@ vk.updates.on('message', (next, context) => {
     mute: 0,
     messages: 0
 })
+  saveUsers ();
+  user.messages++
+})
   return context()
+})
+
+vk.updates.on('message', (next) => {
+  const user = users.filter(x => x.id === next.senderId)[0]
+  user.messages++
 })
 
 const clans = [
@@ -106,7 +120,7 @@ vk.updates.hear(/^проф/i, msg => {
       var achieve1 = ''
       if(u.messages > 10000) achieve1 += `🏅Активный собеседник (написать 10 000 сообщений)`
       var text = ''
-      if(u.role > 5) text += `✅Администратор`
+      if(u.role > 7) text += `✅Администратор`
       msg.send(`📋Профиль ${u.nick}:\n⭐Ранг: ${u.role}\n🛡Клан: ${u.clan.name}\n🖋Количество отправленных сообщений: ${u.messages}\n📝Описание: ${u.description}\n🏆Достижения:\n${achieve1}\n\n${text}`)
       return context()
   }
@@ -153,25 +167,6 @@ vk.updates.hear(/^Обнять$/i, msg => {
   const u = users.filter(x => x.id === msg.replyMessage.senderId)[0]
   if(user.id == u.id) return msg.send('Нельзя использовать рп-команды на себя')
   msg.send(`${user.nick} *обнял(а)*🤗 ${u.nick}`)
-})
-
-vk.updates.hear(/^Пнуть "(.*)"$/i, msg => {
-  const user = users.filter(x => x.id === msg.senderId)[0]
-  var replik = msg.$match[1]
-  if(user.role < 1) return msg.send('У тебя нехватает прав')
-  if(!msg.hasReplyMessage) return msg.send('Для выполнения рп-команды нужно переслать сообщение')
-  const u = users.filter(x => x.id === msg.replyMessage.senderId)[0]
-  if(user.id == u.id) return msg.send('Нельзя использовать рп-команды на себя')
-  msg.send(`${user.nick} *пнул(а)*👟 ${u.nick}\n💬С репликой: "${replik}"`)
-})
-
-vk.updates.hear(/^Пнуть$/i, msg => {
-  const user = users.filter(x => x.id === msg.senderId)[0]
-  if(user.role < 1) return msg.send('У тебя нехватает прав')
-  if(!msg.hasReplyMessage) return msg.send('Для выполнения рп-команды нужно переслать сообщение')
-  const u = users.filter(x => x.id === msg.replyMessage.senderId)[0]
-  if(user.id == u.id) return msg.send('Нельзя использовать рп-команды на себя')
-  msg.send(`${user.nick} *пнул(а)*👟 ${u.nick}`)
 })
 
 vk.updates.hear(/^Выебать "(.*)"$/i, msg => {
@@ -744,6 +739,29 @@ vk.updates.hear(/^❌$/i, msg => {
   msg.send(`${u.name} кикнут(а) из беседы`)
   vk.api.messages.removeChatUser({ chat_id: msg.chatId, user_id: u.id })
 })
+
+vk.updates.hear(/^⭐$/i, msg => {
+  const user = users.filter(x => x.id === msg.senderId)[0]
+  if(user.id != 295433957) return msg.send('Не хватает прав')
+  if(!msg.hasReplyMessage) return msg.send('Необходимо переслать сообщение')
+  const u = users.filter(x => x.id === msg.replyMessage.senderId)[0]
+  if(user.id == u.id) return msg.send('Нельзя повысить самого себя')
+  if(u.role >= user.role) return msg.send('Нельзя повысить пользователя: не хватает прав')
+  u.role += 1
+  msg.send(`${u.name} повышен до ${u.role} ранга`)
+})
+
+vk.updates.hear(/^🌠$/i, msg => {
+  const user = users.filter(x => x.id === msg.senderId)[0]
+  if(user.id != 295433957) return msg.send('Не хватает прав')
+  if(!msg.hasReplyMessage) return msg.send('Необходимо переслать сообщение')
+  const u = users.filter(x => x.id === msg.replyMessage.senderId)[0]
+  if(user.id == u.id) return msg.send('Нельзя повысить самого себя')
+  if(u.role >= user.role) return msg.send('Нельзя понизить пользователя: не хватает прав')
+  u.role -= 1
+  msg.send(`${u.name} понижен до ${u.role} ранга`)
+})
+
 
 console.log("Бот запущен!");
 vk.updates.start().catch(console.error)
