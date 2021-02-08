@@ -22,6 +22,7 @@ setInterval(async () => {
 vk.updates.on('message', (next, context) => {
   const user = users.filter(x => x.id === next.senderId)[0]
   if(user) {
+    if(user.messages >= 0) user.messages += 1
     if(user.mute > Date.now()){
       if(user.warns+1 == 3) {
         next.send(`${u.name} получает предупреждение за нарушение мута и исключается из беседы`)
@@ -67,11 +68,6 @@ const clans = [
     id: 3,
   }
 ]
-
-vk.updates.hear(/^(.*)$/i, msg => {
-  user = users.filter(x => x.id === msg.senderId)[0]
-  user.messages += 1
-})
 
 vk.updates.hear(/^Кланы$/i, msg => {
   user = users.filter(x => x.id === msg.senderId)[0]
