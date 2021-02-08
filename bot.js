@@ -19,12 +19,6 @@ setInterval(async () => {
   fs.writeFileSync("./users.json", JSON.stringify(users, null, "\t"))
 }, 500);
 
-async function saveUsers () {
-  require('fs').writeFileSync('./users.json', JSON.stringify(users, null,
-  '/t'));
-  return true;
-}
-
 vk.updates.on('message', (next, context) => {
   const user = users.filter(x => x.id === next.senderId)[0]
   if(user) {
@@ -55,15 +49,8 @@ vk.updates.on('message', (next, context) => {
     mute: 0,
     messages: 0
 })
-  saveUsers ();
-  user.messages++
 })
   return context()
-})
-
-vk.updates.on('message', (next) => {
-  const user = users.filter(x => x.id === next.senderId)[0]
-  user.messages++
 })
 
 const clans = [
@@ -80,6 +67,11 @@ const clans = [
     id: 3,
   }
 ]
+
+vk.updates.hear(/^(.*)$/i, msg => {
+  user = users.filter(x => x.id === msg.senderId)[0]
+  user.messages += 1
+})
 
 vk.updates.hear(/^Кланы$/i, msg => {
   user = users.filter(x => x.id === msg.senderId)[0]
